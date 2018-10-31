@@ -1,0 +1,12 @@
+name: first_app
+title: first_app
+username:
+account: selinading
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 545226
+bundleId: 1674984
+url: https://selinading.shinyapps.io/first_app/
+when: 1541011581.09961
+asMultiple: FALSE
+asStatic: FALSE

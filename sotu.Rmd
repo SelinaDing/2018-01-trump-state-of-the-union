@@ -1,0 +1,33 @@
+---
+title: "sotu"
+author: "Cunhonghu Ding"
+date: "20181029"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(tidytext)
+```
+
+```{r, results="hide", warning=FALSE, message=FALSE}
+# load data
+sou <- read_csv("first_app/sou.csv")
+presidents <- read_csv("first_app/presidents.csv")
+```
+
+```{r}
+sou %>%
+  left_join(presidents) %>%
+  unnest_tokens(word, text) %>% 
+  inner_join(get_sentiments("afinn"), by = "word") %>% 
+  filter(party %in% c("Democratic", "Republican")) %>% 
+  group_by(party, date) %>% 
+  summarize(rating = mean(score)) %>% 
+  ggplot(aes(x = date, y = rating, color = party)) + geom_point() + geom_smooth(method = "loess") +
+  xlab("Date") +
+  ylab("Average Sentiment Score using AFINN Dictionary") +
+  ggtitle("State of the Union Sentiment Scores")
+````
+
